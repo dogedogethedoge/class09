@@ -139,9 +139,11 @@ addition is given by the operator `+.`). Moreover, we conclude that
 the whole expression `e` must have type `int`, since `+` again
 produces an integer value. Hence, we must have:
 
-`'a = int`
-`'d = int`
-`'e = int`
+```
+'a = int
+'d = int
+'e = int
+```
 
 Similarly, from the subexpression `f 1` whose top-level operation is a
 function application, we can infer that the type of `f` must be a
@@ -155,8 +157,10 @@ and `f` we obtain the constraints relating the type variables
 associated with those leaf expressions with the type variables
 associated with the corresponding program variables:
 
-`'x = 'a`
-`'f = 'd`
+```
+'x = 'a
+'f = 'd
+```
 
 The leaf expression `1` is an integer constant whose type
 is `int`. Thus we have:
@@ -165,14 +169,15 @@ is `int`. Thus we have:
 
 Thus altogether, we have gathered the following constraints:
 
-`'a = int`
-`'d = int`
-`'e = int`
-`'b = 'c -> 'd`
-`'c = int`
-`'x = 'a`
-`'f = 'd`
-
+```
+'a = int
+'d = int
+'e = int
+'b = 'c -> 'd
+'c = int
+'x = 'a
+'f = 'd
+```
 Step 4: solve the typing constraints.
 
 Solving the constraints amounts to computing a unifier σ (a mapping
@@ -243,8 +248,10 @@ In our example, the second case applies. Hence we extend σ₀ to
 
 and proceed to the next constraint. The next two constraints
 
-`'d = int`
-`'e = int`
+```
+'d = int
+'e = int
+```
 
 are similar to the first one and we just update the candidate unifier
 to:
@@ -265,9 +272,11 @@ and then update our candidate solution to
 
 After processing the remaining three constraints 
 
-`'c = int`
-`'x = 'a`
-`'f = 'b`
+```
+'c = int
+'x = 'a
+'f = 'b
+```
 
 we obtain the following solution
 
@@ -277,13 +286,15 @@ we obtain the following solution
 Note that if we apply σ to all the original constraints derived from
 `e`, then we observe that σ is indeed a correct solution of the constraint system:
 
-`int = int`
-`int = int`
-`int = int`
-`int -> int = int -> int`
-`int = int`
-`int = int`
-`int = int`
+```
+int = int
+int = int
+int = int
+int -> int = int -> int
+int = int
+int = int
+int = int
+```
 
 Moreover, we can now read off the inferred types for all
 subexpressions in `e` directly from σ. For instance, we have σ(`'e`) =
@@ -339,21 +350,26 @@ subexpressions. From the first occurrence of `x` we infer
 
 From `x + 1` and its subexpressions we infer:
 
-`'b = 'x`
-`'b = int`
-`'c = int`
-`'d = int`
-
+```
+'b = 'x
+'b = int
+'c = int
+'d = int
+```
 
 From `y` we infer
 
-`'e = 'y`
+```
+'e = 'y
+```
 
 and from `if x then x + 1 else y` we infer
 
-`'a = bool`
-`'f = 'd`
-`'f = 'e`
+```
+'a = bool
+'f = 'd
+'f = 'e
+```
 
 The first of the last three constraints enforces that the condition
 being checked, here `x`, must have type `bool`.  The other two
@@ -364,14 +380,16 @@ value of the branches).
 
 Thus, in summary, we have the constraints:
 
-`'a = 'x`
-`'b = 'x`
-`'b = int`
-`'c = int`
-`'d = int`
-`'a = bool`
-`'f = 'd`
-`'f = 'e`
+```
+'a = 'x
+'b = 'x
+'b = int
+'c = int
+'d = int
+'a = bool
+'f = 'd
+'f = 'e
+```
 
 Now we solve the constraints. Processing the first 5 constraints is
 fine and produces the candidate solution
@@ -418,23 +436,29 @@ of the function.
 
 Start with assigning type variables to all subexpressions:
 
-`f: 'a`
-`y: 'b`
-`x: 'c`
-`f y: 'd`
-`f x y: 'e`
+```
+f: 'a
+y: 'b
+x: 'c
+f y: 'd
+f x y: 'e
+```
 
 then assign type variables to all program variables:
 
-`f: 'f`
-`x: 'x`
-`y: 'y`
+```
+f: 'f
+x: 'x
+y: 'y
+```
 
 Generate the constraints: from `f`, `y`, and `f` we infer
 
-`'a = 'f`
-`'b = 'y`
-`'c = 'x`
+```
+'a = 'f
+'b = 'y
+'c = 'x
+```
 
 From `f y` we infer
 
@@ -446,11 +470,13 @@ and from `f y x` we infer
 
 Thus, in summary we have:
 
-`'a = 'f`
-`'b = 'y`
-`'c = 'x`
-`'a = 'b -> 'd`
-`'d = 'c -> 'e`
+```
+'a = 'f
+'b = 'y
+'c = 'x
+'a = 'b -> 'd
+'d = 'c -> 'e
+```
 
 Solving the constraints yields the unifier:
 
@@ -472,11 +498,13 @@ type is parametric in the type variables `'x`, `'y`, and `'e`. That
 is, we can safely apply `flip` to any function that is compatible with
 the type `'y -> 'x -> 'e`, including e.g.
 
-`int -> int -> int`
-`int -> bool -> bool`
-`bool -> int -> int`
-`(int -> bool) -> int -> int`
+```
+int -> int -> int
+int -> bool -> bool
+bool -> int -> int
+(int -> bool) -> int -> int
 ...
+```
 
 Also, note that since the specific names of the type variables
 appearing in the inferred types do not matter, we can consistently
@@ -592,13 +620,17 @@ let rec hungry x = hungry
 If we apply our type inference algorithm, we generate the following
 type variables for the parameters of the recursive definition:
 
-`hungry: 'h`
-`x: 'x`
+```
+hungry: 'h
+x: 'x
+```
 
 and the following typing constraints from the actual definition:
 
-`'h = 'x -> 'a`
-`'a = 'h`
+```
+'h = 'x -> 'a
+'a = 'h
+```
 
 After solving the first constraint we obtain the candidate solution
 
