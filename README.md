@@ -81,7 +81,7 @@ following steps:
    in `e`. These type variables should be thought of as placeholders
    for the actual types that we are going to infer.
    
-2. Associate a fresh type variable each each program variable
+2. Associate a fresh type variable with each free program variable
    occurring in `e`. These type variables are placeholders for the
    types of those program variables.
 
@@ -101,7 +101,7 @@ a series of examples. A complete description of the algorithm can be
 found
 [here](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) as
 well
-as
+as in
 [Robin Milner's original article](https://www.sciencedirect.com/science/article/pii/0022000078900144/pdf?md5=cdcf7cdb7cfd2e1e4237f4f779ca0df7&pid=1-s2.0-0022000078900144-main.pdf). A
 good textbook-treatment can be found in Ch. 22
 of
@@ -114,6 +114,8 @@ As a first example, let us consider the following expression `e`:
 x + f 1
 ```
 
+We perform the steps of the algorithm described above.
+
 Step 1: associate a type variable with every subexpression of `e`:
 
 ```
@@ -124,7 +126,7 @@ f 1 : 'd
 x + f 1 : 'e
 ```
 
-Step 2: associate a type variable with every variable occurring in `e`:
+Step 2: associate a type variable with every free variable occurring in `e`:
 
 `x: 'x`
 `f: 'f`
@@ -546,10 +548,10 @@ type can be polymorphic. That is, once `g` has been applied to a
 particular function `f`, the type of that `f` is treated
 monomorphically. In contrast, the following expression is OK:
 
-```ocaml 
-let f x = x in 
-(f true, f 0) 
-``` 
+```ocaml
+let f x = x in
+(f true, f 0)
+```
 
 Note that we here provide a specific polymorphic implementation of the
 function `f` which we bind with a `let`, rather than parameterizing
