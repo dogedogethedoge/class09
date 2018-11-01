@@ -44,7 +44,7 @@ let _ = match find t2 2 with
 
 let rec remove_duplicates = function
   | [] -> []
-  | x :: (y :: xs as ys) when x = y ->
+  | x :: (y :: _ as ys) when x = y ->
     remove_duplicates ys
   | x :: xs -> x :: remove_duplicates xs
 
