@@ -17,7 +17,7 @@ let rec derivative = function
       Mult (Mult (Num (float_of_int n), Pow (e1,  n - 1)),
             derivative e1)
 
-let rec simplify_top = function
+let simplify_top = function
   | Mult (Num 0.0 as zero, _) -> zero
   | Mult (Num 1.0, e2) -> e2
   | Mult (Num c1, Num c2) -> Num (c1 +. c2)
