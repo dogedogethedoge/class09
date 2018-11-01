@@ -1,11 +1,5 @@
 (** A small example of a program for computing derivatives of polynomials *)
 
-(** Binary Operators *)
-type binop = Add | Sub | Mul | Div | Pow
-
-(** Unary Operators *)
-type unop = Sin | Cos | Ln | Neg
-
 (** Expressions for polynomials in one variable x *)
 type expr = Num of float                 (* c *)
           | Var                          (* x *)
