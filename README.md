@@ -482,8 +482,7 @@ Thus, in summary we have:
 
 Solving the constraints yields the unifier:
 
-σ = { `'a ↦ 'y -> 'x -> 'e`, `'b ↦ 'y`, `'c ↦ 'x`, 
-      `'f ↦ 'y -> 'x -> 'e`, `'d ↦ 'x -> 'e` }
+σ = { `'a ↦ 'y -> 'x -> 'e,  'b ↦ 'y,  'c ↦ 'x,  'f ↦ 'y -> 'x -> 'e,  'd ↦ 'x -> 'e` }
 
 Now from the definition of `flip` we know that the type of `flip` is
 
