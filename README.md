@@ -17,8 +17,8 @@ of
 
 A *substitution* σ for a type `t` is a mapping of the type variables
 occurring in `t` to types. Example: a possible substitution for
-the type `'a -> 'b` is the mapping σ = `{'a ~> int, 'b ~> int}`. Another
-one is σ'=`{'a ~> 'a, 'b ~> 'b}`. 
+the type `'a -> 'b` is the mapping σ = `{'a ↦ int, 'b ↦ int}`. Another
+one is σ'=`{'a ↦ 'a, 'b ↦ 'b}`. 
 
 Applying a substitution σ to a type `t`, written `t`σ, results in the
 type `t` where all occurrences of type variables have been replaced
@@ -29,7 +29,7 @@ Two types `s` and `t` are said to be *unifiable* if there exists a
 substitution σ for the type variables occurring in both `s` and `t`
 such that `s`σ = `t`σ. The substitution σ is called a *unifier* for `s`
 and `t`. Example: the (unique) unifier for `s = 'a -> int` and `t =
-string -> 'b` is σ = `{'a ~> string, 'b ~> int}`. On the other hand,
+string -> 'b` is σ = `{'a ↦ string, 'b ↦ int}`. On the other hand,
 there exists no unifier for `t = 'a -> int` and `s = string -> 'a`
 because `string` and `int` are distinct types.
 
@@ -225,7 +225,7 @@ Case 2. If one of the two types `t1` and `t2` is a type variable, say
   does, then there is no solution to the typing constraints and we
   aboard with a type error. The is referred to as the "*occurs check*"
   (more on this case later). Otherwise, we extend the current
-  candidate unifier with the mapping `'a ~> t2` and additionally
+  candidate unifier with the mapping `'a ↦ t2` and additionally
   replace any occurrence of `'a` on the right side of a mapping in the
   current candidate unifier with `t2`.
   
@@ -246,7 +246,7 @@ Case 4. In all other cases, we must have a type mismatch. That is, `t1` and
   
 In our example, the second case applies. Hence we extend σ₀ to 
 
-σ₁ = { `'a ~> int` }
+σ₁ = { `'a ↦ int` }
 
 and proceed to the next constraint. The next two constraints
 
@@ -258,7 +258,7 @@ and proceed to the next constraint. The next two constraints
 are similar to the first one and we just update the candidate unifier
 to:
 
-σ₃ = { `'a ~> int`, `'d ~> int`, `'e ~> int` }
+σ₃ = { `'a ↦ int`, `'d ↦ int`, `'e ↦ int` }
 
 The next constraint is
 
@@ -270,7 +270,7 @@ we apply σ₃ on both sides and obtain
 
 and then update our candidate solution to
 
-σ₄ = { `'a ~> int`, `'d ~> int`, `'e ~> int`, `'b ~> 'c -> int` }
+σ₄ = { `'a ↦ int`, `'d ↦ int`, `'e ↦ int`, `'b ↦ 'c -> int` }
 
 After processing the remaining three constraints 
 
@@ -282,8 +282,8 @@ After processing the remaining three constraints
 
 we obtain the following solution
 
-σ = { `'a ~> int`, `'d ~> int`, `'e ~> int`, `'b ~> int -> int`, 
-      `'c ~> int`, `'x ~> int`, `'f ~> int -> int` }
+σ = { `'a ↦ int`, `'d ↦ int`, `'e ↦ int`, `'b ↦ int -> int`, 
+      `'c ↦ int`, `'x ↦ int`, `'f ↦ int -> int` }
 
 Note that if we apply σ to all the original constraints derived from
 `e`, then we observe that σ is indeed a correct solution of the constraint system:
@@ -396,7 +396,7 @@ Thus, in summary, we have the constraints:
 Now we solve the constraints. Processing the first 5 constraints is
 fine and produces the candidate solution
 
-σ₅ = { `'a ~> int`, `'b ~> int`, `'x ~> int`, `'c ~> int`, `'d ~> int` }
+σ₅ = { `'a ↦ int`, `'b ↦ int`, `'x ↦ int`, `'c ↦ int`, `'d ↦ int` }
 
 However, when we process the next constraint
 
@@ -482,8 +482,8 @@ Thus, in summary we have:
 
 Solving the constraints yields the unifier:
 
-σ = { `'a ~> 'y -> 'x -> 'e`, `b ~> 'y`, `c ~> 'x`, 
-      `'f ~> 'y -> 'x -> 'e`, `d ~> 'x -> 'e` }
+σ = { `'a ↦ 'y -> 'x -> 'e`, `b ↦ 'y`, `c ↦ 'x`, 
+      `'f ↦ 'y -> 'x -> 'e`, `d ↦ 'x -> 'e` }
 
 Now from the definition of `flip` we know that the type of `flip` is
 
@@ -511,7 +511,7 @@ bool -> int -> int
 Also, note that since the specific names of the type variables
 appearing in the inferred types do not matter, we can consistently
 rename them once the type inference is complete. For instance, if we
-rename `'y ~> 'a`, `x ~> 'b`, and `'e ~> 'c`, then we get the type:
+rename `'y ↦ 'a`, `x ↦ 'b`, and `'e ↦ 'c`, then we get the type:
 
 `flip: ('a -> 'b -> 'c) -> 'b -> 'a -> 'c`
 
@@ -636,7 +636,7 @@ and the following typing constraints from the actual definition:
 
 After solving the first constraint we obtain the candidate solution
 
-σ₁ = { `'h ~> 'x -> 'a` }
+σ₁ = { `'h ↦ 'x -> 'a` }
 
 which when applied to the second constraint yields
 
