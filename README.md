@@ -161,7 +161,7 @@ associated with the corresponding program variables:
 
 ```
 'x = 'a
-'f = 'd
+'f = 'b
 ```
 
 The leaf expression `1` is an integer constant whose type
@@ -178,7 +178,7 @@ Thus altogether, we have gathered the following constraints:
 'b = 'c -> 'd
 'c = int
 'x = 'a
-'f = 'd
+'f = 'b
 ```
 Step 4: solve the typing constraints.
 
