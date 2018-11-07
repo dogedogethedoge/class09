@@ -855,7 +855,7 @@ given key `k` in a map implemented as a binary search tree, if such an
 association exists:
 
 ```ocaml
-let res find k = function
+let rec find k = function
   | Node (k1, v, left, right) ->
     if k1 = k then Some v
     else if k1 > k then find k left
