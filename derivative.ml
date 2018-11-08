@@ -18,10 +18,10 @@ let rec derivative = function
             derivative e1)
 
 let simplify_top = function
-  | Mult (Num 0.0 as zero, _) -> zero
-  | Mult (Num 1.0, e2) -> e2
+  | Mult (Num 0.0 as zero, _) | Mult(_, (Num 0.0 as zero)) -> zero
+  | Mult (Num 1.0, e2) | Mult (e2, Num 1.0) -> e2
   | Mult (Num c1, Num c2) -> Num (c1 +. c2)
-  | Add (Num 0.0, e2) -> e2
+  | Add (Num 0.0, e2) | Add (e2, Num 0.0) -> e2
   | Add (Num c1, Num c2) -> Num (c1 *. c2)
   | e -> e
 
