@@ -198,7 +198,7 @@ starts with a trivial candidate solution σ₀ = ∅ and then processes the
 equality constraints one at a time in any order, extending σ₀ to an
 actual unifier of the whole set of constraints. If at any point, we
 encounter a constraint that we cannot solve (e.g. `bool = int`), then
-we aboard and report a type error.
+we abort and report a type error.
 
 For our example, we process the constraints in the order given above,
 starting with the constraint
@@ -223,7 +223,7 @@ Case 1. If `t1` and `t2` are the exact same type expressions, then there is
 Case 2. If one of the two types `t1` and `t2` is a type variable, say
   `t1 = 'a`, then we first check whether `'a` occurs in `t2`. If it
   does, then there is no solution to the typing constraints and we
-  aboard with a type error. The is referred to as the "*occurs check*"
+  abort with a type error. The is referred to as the "*occurs check*"
   (more on this case later). Otherwise, we extend the current
   candidate unifier with the mapping `'a ↦ t2` and additionally
   replace any occurrence of `'a` on the right side of a mapping in the
@@ -406,7 +406,7 @@ and apply σ₅ to both sides, we get:
 
 `int = bool`
 
-which is unsolvable. Thus at this point we aboard and report a type error.
+which is unsolvable. Thus at this point we abort and report a type error.
 
 If we look back at the original expression
 
